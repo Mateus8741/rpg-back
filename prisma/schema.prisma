@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  userName String    @unique
+  RPGForms RPGForm[]
+}
+
+// Definição da tabela para as fichas de RPG
+model RPGForm {
+  id          Int          @id @default(autoincrement())
+  personaName String
+  hp          Int
+  mp          Int
+  str         Int
+  agl         Int
+  des         Int
+  con         Int
+  int         Int
+  equip       Equip[]
+  phobias     Phibia[]
+  Hability    Hability[]
+  Invenctory  Invenctory[]
+  maxStr      Int
+  maxDef      Int
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int
+}
+
+// Definição da tabela para os equip
+model Equip {
+  id       Int     @id @default(autoincrement())
+  name     String
+  position Int // Número do equipamento de 1 a 6
+  RPGForm  RPGForm @relation(fields: [formId], references: [id])
+  formId   Int
+}
+
+// Definição da tabela para as Phibias
+model Phibia {
+  id       Int     @id @default(autoincrement())
+  mobName  String // Nome do mob que causou a Phibia
+  quantity Int // Quantidade de mobs para derrotar
+  RPGForm  RPGForm @relation(fields: [formId], references: [id])
+  formId   Int
+}
+
+model Hability {
+  id      Int     @id @default(autoincrement())
+  name    String
+  wear    Int // Número de desgaste da habilidade
+  mpCost  Int // Custo em MP da habilidade
+  RPGForm RPGForm @relation(fields: [formId], references: [id])
+  formId  Int
+}
+
+model Invenctory {
+  id       Int     @id @default(autoincrement())
+  itemName String
+  quantity Int // Quantidade de itens
+  RPGForm  RPGForm @relation(fields: [formId], references: [id])
+  formId   Int
+}
