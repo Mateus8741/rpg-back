@@ -19,6 +19,6 @@ app.register(createHero);
 app.register(getAllHeroes);
 app.register(getOneHero);
 
-app.listen({port: 3100}).then(() => {
+app.listen({port: 3100, host: "0.0.0.0"}).then(() => {
   console.log("Server is running on port 3000");
 });

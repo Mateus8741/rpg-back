@@ -1,7 +1,6 @@
 import {
   createHero
-} from "./chunk-QM5EAS5R.mjs";
-import "./chunk-7QDIDUNV.mjs";
+} from "./chunk-37XRBTDU.mjs";
 import {
   getAllHeroes
 } from "./chunk-JTNVEAGA.mjs";
@@ -9,6 +8,7 @@ import {
   getOneHero
 } from "./chunk-GCPGIGFI.mjs";
 import "./chunk-6VR3Y22B.mjs";
+import "./chunk-7QDIDUNV.mjs";
 
 // src/server.ts
 import fastifyCors from "@fastify/cors";
@@ -24,6 +24,6 @@ app.setSerializerCompiler(serializerCompiler);
 app.register(createHero);
 app.register(getAllHeroes);
 app.register(getOneHero);
-app.listen({ port: 3100 }).then(() => {
+app.listen({ port: 3100, host: "0.0.0.0" }).then(() => {
   console.log("Server is running on port 3000");
 });
