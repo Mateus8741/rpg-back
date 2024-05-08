@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Hero" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "level" INTEGER NOT NULL,
     "exp" INTEGER NOT NULL,
@@ -19,33 +19,47 @@ CREATE TABLE "Hero" (
     "luvas" TEXT NOT NULL,
     "botas" TEXT NOT NULL,
     "armaEsquerda" TEXT NOT NULL,
-    "armaDireita" TEXT NOT NULL
+    "armaDireita" TEXT NOT NULL,
+
+    CONSTRAINT "Hero_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Habilidade" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
     "desgaste" INTEGER NOT NULL,
     "custoMP" INTEGER NOT NULL,
     "heroId" TEXT NOT NULL,
-    CONSTRAINT "Habilidade_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT "Habilidade_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Inventario" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "nome" TEXT NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "heroId" TEXT NOT NULL,
-    CONSTRAINT "Inventario_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT "Inventario_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Fobia" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "monstro" TEXT NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "heroId" TEXT NOT NULL,
-    CONSTRAINT "Fobia_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+
+    CONSTRAINT "Fobia_pkey" PRIMARY KEY ("id")
 );
+
+-- AddForeignKey
+ALTER TABLE "Habilidade" ADD CONSTRAINT "Habilidade_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inventario" ADD CONSTRAINT "Inventario_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Fobia" ADD CONSTRAINT "Fobia_heroId_fkey" FOREIGN KEY ("heroId") REFERENCES "Hero"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
