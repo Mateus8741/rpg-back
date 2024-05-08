@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --format esm"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/node": "^20.12.9",
     "prisma": "^5.13.0",
+    "tsup": "^8.0.2",
     "tsx": "^4.9.3",
     "typescript": "^5.4.5"
   },
