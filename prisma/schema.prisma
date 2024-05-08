@@ -9,3 +9,58 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Hero {
+  id    String @id @default(uuid())
+  nome  String
+  level Int
+  exp   Int
+  gold  Int
+
+  maxAtk Int
+  maxDef Int
+
+  hp           Int
+  mp           Int
+  forca        String
+  agilidade    String
+  destreza     String
+  constituicao String
+  inteligencia String
+
+  cabeca       String
+  peito        String
+  luvas        String
+  botas        String
+  armaEsquerda String
+  armaDireita  String
+
+  habilidade Habilidade[]
+  inventario Inventario[]
+  fobias     Fobia[]
+}
+
+model Habilidade {
+  id       Int    @id @default(autoincrement())
+  nome     String
+  desgaste Int
+  custoMP  Int
+  hero     Hero   @relation(fields: [heroId], references: [id])
+  heroId   String
+}
+
+model Inventario {
+  id         Int    @id @default(autoincrement())
+  nome       String
+  quantidade Int
+  hero       Hero   @relation(fields: [heroId], references: [id])
+  heroId     String
+}
+
+model Fobia {
+  id         Int    @id @default(autoincrement())
+  monstro    String
+  quantidade Int
+  hero       Hero   @relation(fields: [heroId], references: [id])
+  heroId     String
+}
